@@ -25,5 +25,23 @@ class MainActivity : AppCompatActivity() {
         OneSignal.initWithContext(this)
         OneSignal.setAppId(ONESIGNAL_APP_ID)
 
+
+        OneSignal.setInAppMessageClickHandler() {
+            val clickName = it.clickName
+            val clickUrl = it.clickUrl
+            val closesMessage = it.doesCloseMessage()
+            val firstClick = it.isFirstClick
+            Log.i(
+                "MessageClickHandler",
+                "$clickName (*) $clickUrl (*) $closesMessage (*) $firstClick"
+            )
+        }
+
+        OneSignal.setNotificationOpenedHandler() {
+            val actionID = it.action.actionId
+            val type = it.action.type
+            val title = it.notification.title
+            Log.i("NotificationOpened", "$actionID (*) $type (*) $title")
+        }
     }
 }
